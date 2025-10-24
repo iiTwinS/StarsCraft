@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Team - StarsCraft Minecraft Community</title>
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #4a9eff;
+            --secondary-color: #ff4a9e;
+            --accent-color: #9eff4a;
+            --dark-bg: #0a0e27;
+            --light-bg: #f5f7fa;
+            --card-bg-dark: rgba(255, 255, 255, 0.05);
+            --card-bg-light: rgba(255, 255, 255, 0.7);
+            --text-dark: #ffffff;
+            --text-light: #333333;
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --transition-speed: 0.3s;
+        }
+
+        [data-theme="light"] {
+            --primary-color: #0066cc;
+            --secondary-color: #cc0066;
+            --accent-color: #66cc00;
+            --dark-bg: #f5f7fa;
+            --light-bg: #0a0e27;
+            --card-bg-dark: rgba(255, 255, 255, 0.7);
+            --card-bg-light: rgba(10, 14, 39, 0.05);
+            --text-dark: #333333;
+            --text-light: #ffffff;
+            --glass-border: rgba(0, 0, 0, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1e3a 25%, #2a1e4a 50%, #1a1e3a 75%, #0a0e27 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Particle Effect */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Header */
+        header {
+            background: rgba(10, 14, 39, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            padding: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(180deg);
+        }
+
+        .theme-toggle i {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        /* Server Status */
+        .server-status {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem auto;
+            max-width: 1400px;
+            padding: 0 2rem;
+        }
+
+        .status-card {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .status-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px var(--shadow-color);
+        }
+
+        .status-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+
+        .minecraft-status .status-icon {
+            background: linear-gradient(135deg, #4CAF50, #8BC34A);
+        }
+
+        .discord-status .status-icon {
+            background: linear-gradient(135deg, #7289DA, #99AAB5);
+        }
+
+        .status-info h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .status-info p {
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #4CAF50;
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .copy-ip {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .copy-ip:hover {
+            background: var(--secondary-color);
+            transform: scale(1.05);
+        }
+
+        .copy-ip.copied {
+            background: var(--accent-color);
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientText 3s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradientText {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Search and Filter */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 1rem 3rem 1rem 1rem;
+            border-radius: 50px;
+            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            color: var(--text-dark);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .search-box i {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            color: var(--text-dark);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Staff Grid */
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        /* Staff Card */
+        .staff-card {
+            perspective: 1000px;
+            height: 400px;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+
+        .staff-card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px var(--shadow-color);
+        }
+
+        .card-front {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .card-front:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px var(--shadow-color);
+        }
+
+        .avatar-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin-bottom: 1.5rem;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .avatar-container:hover .avatar {
+            transform: scale(1.1);
+            border-color: var(--secondary-color);
+        }
+
+        .online-status {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #4CAF50;
+            border: 4px solid var(--dark-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .online-status::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: white;
+            animation: pulse 2s infinite;
+        }
+
+        .staff-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .staff-role {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: rolePulse 3s infinite;
+        }
+
+        @keyframes rolePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .role-owner {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #333;
+        }
+
+        .role-admin {
+            background: linear-gradient(135deg, #FF416C, #FF4B2B);
+            color: white;
+        }
+
+        .role-moderator {
+            background: linear-gradient(135deg, #4A90E2, #7B68EE);
+            color: white;
+        }
+
+        .role-helper {
+            background: linear-gradient(135deg, #50C878, #3CB371);
+            color: white;
+        }
+
+        .role-developer {
+            background: linear-gradient(135deg, #9C27B0, #673AB7);
+            color: white;
+        }
+
+        .flip-btn {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .flip-btn:hover {
+            background: var(--secondary-color);
+            transform: rotate(180deg);
+        }
+
+        .card-back {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            transform: rotateY(180deg);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .bio {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .achievements {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .achievement {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .achievement:hover {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 14, 39, 0.8);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--glass-border);
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: var(--text-dark);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            opacity: 1;
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--glass-border);
+            opacity: 0.8;
+        }
+
+        /* Loading Animation */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .minecraft-loader {
+            width: 100px;
+            height: 100px;
+            position: relative;
+        }
+
+        .cube {
+            width: 30px;
+            height: 30px;
+            background: var(--primary-color);
+            position: absolute;
+            animation: cubeRotate 2s infinite ease-in-out;
+        }
+
+        .cube:nth-child(1) {
+            top: 0;
+            left: 0;
+            animation-delay: 0s;
+        }
+
+        .cube:nth-child(2) {
+            top: 0;
+            right: 0;
+            animation-delay: 0.2s;
+        }
+
+        .cube:nth-child(3) {
+            bottom: 0;
+            left: 0;
+            animation-delay: 0.4s;
+        }
+
+        .cube:nth-child(4) {
+            bottom: 0;
+            right: 0;
+            animation-delay: 0.6s;
+        }
+
+        @keyframes cubeRotate {
+            0%, 100% {
+                transform: rotate(0deg) scale(1);
+            }
+            50% {
+                transform: rotate(180deg) scale(1.2);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .server-status {
+                flex-direction: column;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .search-box {
+                max-width: 100%;
+            }
+
+            .staff-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        /* Notification Toast */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px var(--shadow-color);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1001;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+    <div class="particles" id="particles"></div>
+
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="minecraft-loader">
+            <div class="cube"></div>
+            <div class="cube"></div>
+            <div class="cube"></div>
+            <div class="cube"></div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-cube"></i>
+                StarsCraft
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Store</a></li>
+                    <li><a href="#">Staff</a></li>
+                </ul>
+            </nav>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Server Status -->
+    <section class="server-status">
+        <div class="status-card minecraft-status">
+            <div class="status-icon">
+                <i class="fas fa-server"></i>
+            </div>
+            <div class="status-info">
+                <h3>Minecraft Server</h3>
+                <p>
+                    <span class="status-indicator"></span>
+                    <span id="playerCount">127</span> players online
+                </p>
+                <p>play.StarsCraft.com</p>
+            </div>
+            <button class="copy-ip" id="copyIp">Copy IP</button>
+        </div>
+        <div class="status-card discord-status">
+            <div class="status-icon">
+                <i class="fab fa-discord"></i>
+            </div>
+            <div class="status-info">
+                <h3>Discord Community</h3>
+                <p>
+                    <span class="status-indicator"></span>
+                    <span id="discordCount">456</span> members
+                </p>
+                <p>discord.gg/StarsCraft</p>
+            </div>
+            <button class="copy-ip" id="copyDiscord">Join Discord</button>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <h1 class="page-title">Meet Our Staff Team</h1>
+
+        <!-- Search and Filter -->
+        <div class="controls">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search staff members...">
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn" data-filter="owner">Owner</button>
+                <button class="filter-btn" data-filter="admin">Admin</button>
+                <button class="filter-btn" data-filter="moderator">Moderator</button>
+                <button class="filter-btn" data-filter="developer">Developer</button>
+                <button class="filter-btn" data-filter="helper">Helper</button>
+                
+            </div>
+        </div>
+
+        <!-- Staff Grid -->
+        <div class="staff-grid" id="staffGrid">
+            <!-- Staff cards will be dynamically generated here -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Forums</a></li>
+                    <li><a href="#">Store</a></li>
+                    <li><a href="#">Vote</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Community</h3>
+                <ul>
+                    <li><a href="#">Rules</a></li>
+                    <li><a href="#">Staff</a></li>
+                    <li><a href="#">Support</a></li>
+                    <li><a href="#">Appeals</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Wiki</a></li>
+                    <li><a href="#">Map</a></li>
+                    <li><a href="#">Bans</a></li>
+                    <li><a href="#">Applications</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <ul>
+                    <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                    <li><a href="#"><i class="fab fa-youtube"></i> YouTube</a></li>
+                    <li><a href="#"><i class="fab fa-twitch"></i> Twitch</a></li>
+                    <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 StarsCraft Network. All rights reserved. Developed & Maintened By 👑<span style="color: #11d9f3;font-size: large; font-style: oblique;" >MR ABDELLAH </span>✨</p>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // Staff data
+        const staffData = [
+            {
+                id: 1,
+                name: "iiTwinSx",
+                role: "owner",
+                avatar: "tw.png",
+                bio: "Founder and owner of StarsCraft Network. Passionate about creating amazing Minecraft experiences for our community.",
+                social: {
+                    twitter: "#",
+                    discord: "#",
+                    youtube: "#"
+                },
+                achievements: ["👑", "💎", "🏆"],
+                online: true
+            },
+            {
+                id: 2,
+                name: "MR_ABDELLAH",
+                role: "admin",
+                avatar: "abl.png",
+                bio: "Senior administrator with 5+ years of experience. Managing server operations and ensuring smooth gameplay for everyone.",
+                social: {
+                    twitter: "#",
+                    discord: "#",
+                    youtube: "#"
+                },
+                achievements: ["⚡", "🛡️", "👑"],
+                online: true
+            },
+            {
+                id: 3,
+                name: "MR_ABDELLAH",
+                role: "moderator",
+                avatar: "abl.png",
+                bio: "Dedicated moderator keeping our community safe and friendly. Always here to help with any issues.",
+                social: {
+                    twitter: "#",
+                    discord: "#",
+                    youtube: "#"
+                },
+                achievements: ["🔨", "📋", "✨"],
+                online: false
+            },
+            {
+                id: 4,
+                name: "LKHDAM 1",
+                role: "helper",
+                avatar: "help1.jpg",
+                bio: "Friendly helper always ready to assist new players. Love building and helping others learn the ropes!",
+                social: {
+                    twitter: "#",
+                    discord: "#",
+                    youtube: "#"
+                },
+                achievements: ["💚", "🌟", "🎨"],
+                online: true
+            },
+            {
+                id: 5,
+                name: "MR_ABDELLAH",
+                role: "developer",
+                avatar: "abl.png",
+                bio: "Lead developer working on custom plugins and features. Turning ideas into reality one line of code at a time.",
+                social: {
+                    twitter: "#",
+                    discord: "#",
+                    github: "#"
+                },
+                achievements: ["💻", "🔧", "🚀", "🌟"],
+                online: true
+            },
+            {
+                id: 6,
+                name: "MARJANA",
+                role: "admin",
+                avatar: "mj.png",
+                bio: "Community manager and administrator. Focused on events, tournaments, and making our server the best place to be.",
+                social: {
+                    twitter: "#",
+                    discord: "#",
+                    youtube: "#"
+                },
+                achievements: ["🎉", "🏅", "🎯"],
+                online: false
+            },
+            {
+                id: 7,
+                name: "MARJANA",
+                role: "moderator",
+                avatar: "mj.png",
+                bio: "Experienced moderator with a keen eye for detail. Ensuring fair play and resolving conflicts.",
+                social: {
+                    twitter: "#",
+                    discord: "#",
+                    twitch: "#"
+                },
+                achievements: ["⚖️", "🔍", "🛠️"],
+                online: true
+            },
+            {
+                id: 8,
+                name: "LKHDAM 2",
+                role: "helper",
+                avatar: "help2.jpg",
+                bio: "Enthusiastic helper passionate about redstone and building. Love teaching new players advanced techniques!",
+                social: {
+                    twitter: "#",
+                    discord: "#",
+                    youtube: "#"
+                },
+                achievements: ["🔴", "⛏️", "🏗️"],
+                online: true
+            },
+            {
+                id: 9,
+                name: "iiTwinSx",
+                role: "developer",
+                avatar: "tw.png",
+                bio: "Backend developer optimizing server performance .",
+                social: {
+                    twitter: "#",
+                    discord: "#",
+                    github: "#"
+                },
+                achievements: ["🔌", "⚙️", "📊"],
+                online: false
+            }
+        ];
+
+        // Initialize particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Generate staff cards
+        function generateStaffCards(staff = staffData) {
+            const staffGrid = document.getElementById('staffGrid');
+            staffGrid.innerHTML = '';
+            
+            staff.forEach(member => {
+                const card = document.createElement('div');
+                card.className = 'staff-card';
+                card.dataset.role = member.role;
+                card.dataset.name = member.name.toLowerCase();
+                
+                card.innerHTML = `
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="avatar-container">
+                                <img src="${member.avatar}" alt="${member.name}" class="avatar">
+                                ${member.online ? '<div class="online-status"></div>' : ''}
+                            </div>
+                            <h2 class="staff-name">${member.name}</h2>
+                            <span class="staff-role role-${member.role}">${member.role}</span>
+                            <button class="flip-btn" onclick="flipCard(this)">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                        <div class="card-back">
+                            <div>
+                                <p class="bio">${member.bio}</p>
+                                <div class="social-links">
+                                    ${member.social.twitter ? `<a href="${member.social.twitter}" class="social-link"><i class="fab fa-twitter"></i></a>` : ''}
+                                    ${member.social.discord ? `<a href="${member.social.discord}" class="social-link"><i class="fab fa-discord"></i></a>` : ''}
+                                    ${member.social.youtube ? `<a href="${member.social.youtube}" class="social-link"><i class="fab fa-youtube"></i></a>` : ''}
+                                    ${member.social.twitch ? `<a href="${member.social.twitch}" class="social-link"><i class="fab fa-twitch"></i></a>` : ''}
+                                    ${member.social.github ? `<a href="${member.social.github}" class="social-link"><i class="fab fa-github"></i></a>` : ''}
+                                </div>
+                            </div>
+                            <div class="achievements">
+                                ${member.achievements.map(achievement => `<div class="achievement">${achievement}</div>`).join('')}
+                            </div>
+                            <button class="flip-btn" onclick="flipCard(this)">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                staffGrid.appendChild(card);
+            });
+        }
+
+        // Flip card function
+        function flipCard(button) {
+            const card = button.closest('.staff-card');
+            card.classList.toggle('flipped');
+        }
+
+        // Filter staff members
+        function filterStaff() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const searchInput = document.getElementById('searchInput');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Update active button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    // Filter staff
+                    const filter = button.dataset.filter;
+                    const cards = document.querySelectorAll('.staff-card');
+                    
+                    cards.forEach(card => {
+                        if (filter === 'all' || card.dataset.role === filter) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Search functionality
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                const cards = document.querySelectorAll('.staff-card');
+                
+                cards.forEach(card => {
+                    if (card.dataset.name.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Theme toggle
+        function setupThemeToggle() {
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+            const icon = themeToggle.querySelector('i');
+            
+            themeToggle.addEventListener('click', () => {
+                if (body.getAttribute('data-theme') === 'light') {
+                    body.removeAttribute('data-theme');
+                    icon.className = 'fas fa-moon';
+                } else {
+                    body.setAttribute('data-theme', 'light');
+                    icon.className = 'fas fa-sun';
+                }
+            });
+        }
+
+        // Copy IP functionality
+        function setupCopyButtons() {
+            const copyIpBtn = document.getElementById('copyIp');
+            const copyDiscordBtn = document.getElementById('copyDiscord');
+            
+            copyIpBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText('play.StarsCraft.com');
+                showToast('Server IP copied to clipboard!');
+                copyIpBtn.classList.add('copied');
+                copyIpBtn.textContent = 'Copied!';
+                
+                setTimeout(() => {
+                    copyIpBtn.classList.remove('copied');
+                    copyIpBtn.textContent = 'Copy IP';
+                }, 2000);
+            });
+            
+            copyDiscordBtn.addEventListener('click', () => {
+                window.open('https://discord.gg/StarsCraft', '_blank');
+            });
+        }
+
+        // Show toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Update player count (simulated)
+        function updatePlayerCount() {
+            const playerCount = document.getElementById('playerCount');
+            const discordCount = document.getElementById('discordCount');
+            
+            setInterval(() => {
+                const newPlayerCount = 120 + Math.floor(Math.random() * 20);
+                const newDiscordCount = 3400 + Math.floor(Math.random() * 100);
+                
+                playerCount.textContent = newPlayerCount;
+                discordCount.textContent = newDiscordCount.toLocaleString();
+            }, 30000);
+        }
+
+        // Hide loader when page is loaded
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1500);
+        });
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            generateStaffCards();
+            filterStaff();
+            setupThemeToggle();
+            setupCopyButtons();
+            updatePlayerCount();
+        });
+
+        // Add parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.animated-bg');
+            parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+        });
+    </script>
+</body>
+</html>
