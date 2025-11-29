@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="ar">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Staff Team - StarsCraft</title>
+<link rel="icon" type="image/png" href="starscraftt.png" />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/minecraftia" rel="stylesheet">
+<style>
+  :root{
+    --card-bg:rgba(255,255,255,0.06);
+    --glass:rgba(255,255,255,0.04);
+    --green:#33ff00;
+  }
+  body{
+    margin:0;
+    min-height:100vh;
+    font-family:"Poppins",sans-serif;
+    color:#fff;
+    background:url('StarsServer.png') no-repeat center center/cover;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:40px;
+  }
+  .container{
+    max-width:1100px;
+    width:100%;
+    background-color:rgba(0,0,0,0.5);
+    border-radius:16px;
+    padding:24px;
+    position:relative;
+  }
+  .home-btn, .vote-btn{
+    background-color:#33ff00;
+    color:#fff;
+    font-weight:700;
+    font-size:16px;
+    border:none;
+    border-radius:8px;
+    padding:12px 28px;
+    cursor:pointer;
+    box-shadow:0 4px 0 #26c600;
+    transition:all 0.2s ease;
+    position:absolute;
+    top:20px;
+  }
+  .home-btn:hover, .vote-btn:hover{
+    background-color:#2cff00;
+    transform:translateY(-2px);
+    box-shadow:0 6px 0 #1fa800;
+  }
+  .home-btn:active, .vote-btn:active{
+    transform:translateY(2px);
+    box-shadow:0 1px 0 #1fa800;
+  }
+  .home-btn{ left:20px; }
+  .vote-btn{ right:20px; }
+
+  header{text-align:center;margin-bottom:24px}
+  header h1{
+    margin:0;
+    font-size:52px;
+    font-weight:900;
+    color:#33ff00;
+    letter-spacing:3px;
+    text-shadow:
+      0 0 5px #33ff00,
+      0 0 15px #33ff00,
+      0 0 25px #1aff00,
+      0 0 35px #0aff00,
+      0 0 45px rgba(51,255,0,0.5);
+    animation: glow 2.5s ease-in-out infinite alternate;
+  }
+  @keyframes glow {
+    from { text-shadow:0 0 5px #33ff00,0 0 10px #33ff00,0 0 15px #1aff00; }
+    to { text-shadow:0 0 15px #33ff00,0 0 30px #00ff66,0 0 45px #00ffcc; }
+  }
+
+  header p{
+    margin:8px 0 0;
+    font-size:16px;
+    font-weight:600;
+    color:#ffffff;
+    text-shadow:
+      0 0 5px #fff,
+      0 0 10px #fff,
+      0 0 20px rgba(255,255,255,0.9),
+      0 0 30px rgba(255,255,255,0.8),
+      0 0 40px rgba(255,255,255,0.6);
+    animation: glowWhite 3s ease-in-out infinite alternate;
+  }
+  @keyframes glowWhite {
+    from { text-shadow:0 0 6px #fff,0 0 12px #fff,0 0 20px rgba(255,255,255,0.7); }
+    to { text-shadow:0 0 12px #fff,0 0 24px rgba(255,255,255,0.9),0 0 40px rgba(255,255,255,1); }
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:18px;
+  }
+  .card{
+    background:var(--card-bg);
+    border-radius:12px;
+    padding:14px;
+    text-align:center;
+    box-shadow:0 0 8px rgba(51,255,0,0.5);
+    backdrop-filter:blur(6px);
+    transition:transform .18s, box-shadow .18s, border .18s;
+    border:2px solid rgba(51,255,0,0.8);
+  }
+  .card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 0 18px rgba(51,255,0,0.9);
+  }
+  .avatar{
+    width:100%;
+    height:180px;
+    border-radius:10px;
+    object-fit:cover;
+    margin-bottom:12px;
+    border:4px solid transparent;
+    background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(0,0,0,0.08));
+  }
+
+  .name{
+    font-family:'Minecraftia', monospace;
+    font-size:15px;
+    font-weight:700;
+    margin:6px 0 2px;
+    letter-spacing:1px;
+    text-shadow:1px 1px 0 #000, 2px 2px 0 rgba(0,0,0,0.4);
+  }
+
+  /* جعل كل الرتب باللون الأبيض المتوهج */
+  .role{
+    font-size:13px;
+    color:#fff;
+    font-weight:600;
+    text-shadow:
+      0 0 5px #fff,
+      0 0 10px #fff,
+      0 0 20px rgba(255,255,255,0.9),
+      0 0 30px rgba(255,255,255,0.8),
+      0 0 40px rgba(255,255,255,0.6);
+    animation: glowWhite 3s ease-in-out infinite alternate;
+    margin-bottom:8px;
+  }
+
+  .contact a{
+    color:rgba(255,255,255,0.9);
+    text-decoration:none;
+    font-size:13px;
+    cursor:pointer;
+  }
+  .contact a:hover{color:#00ffb3;}
+  footer{
+    margin-top:18px;
+    text-align:center;
+    color:rgba(255,255,255,0.6);
+    font-size:13px;
+  }
+  .toast{
+    position:fixed;
+    bottom:30px;
+    left:50%;
+    transform:translateX(-50%);
+    background:rgba(0,0,0,0.75);
+    color:#fff;
+    padding:10px 20px;
+    border-radius:8px;
+    opacity:0;
+    transition:opacity .3s ease;
+    font-size:14px;
+  }
+  .toast.show{opacity:1;}
+  @media (max-width:420px){
+    .avatar{height:140px}
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <button class="home-btn" onclick="location.href='https://starscraft.fun'">Home</button>
+    <button class="vote-btn" onclick="location.href='https://topminecraftservers.org/server/41215'">Vote</button>
+
+    <header>
+      <h1> STAFF TEAM </h1>
+      <p>Meet the powerful team behind StarsCraft</p>
+    </header>
+
+    <div class="grid">
+      <div class="card">
+        <img class="avatar" src="twins.png" alt="Founder">
+        <div class="name">iiTwinSx</div>
+        <div class="role">Founder / Owner</div>
+        <div class="contact"><a onclick="copyEmail('twins@starscraft.fun')">twins@starscraft.fun</a></div>
+      </div>
+
+      <div class="card">
+        <img class="avatar" src="abl.png" alt="Admin 1">
+        <div class="name">MrAbl</div>
+        <div class="role">Admin</div>
+        <div class="contact"><a onclick="copyEmail('mrabl@starscraft.fun')">mrabl@starscraft.fun</a></div>
+      </div>
+
+      <div class="card">
+        <img class="avatar" src="xmouad.png" alt="Admin 2">
+        <div class="name">xMouad</div>
+        <div class="role">Admin</div>
+        <div class="contact"><a onclick="copyEmail('mx0uad_')">Discord : mx0uad_</a></div>
+      </div>
+
+      <div class="card">
+        <img class="avatar" src="theinsou.png" alt="Admin 3">
+        <div class="name">TheinSou</div>
+        <div class="role">Admin</div>
+        <div class="contact"><a onclick="copyEmail('https://discord.com/invite/7tt7apjcqB')">Discord</a></div>
+      </div>
+
+      <div class="card">
+        <img class="avatar" src="marjana.png" alt="Old Admin">
+        <div class="name">MarJana</div>
+        <div class="role">Old Admin</div>
+        <div class="contact"><a onclick="copyEmail('s88h')">Discord : s88h</a></div>
+      </div>
+
+      <div class="card">
+        <img class="avatar" src="mrtwins.png" alt="Developer 1">
+        <div class="name">iiTwinSx</div>
+        <div class="role">Developer</div>
+        <div class="contact"><a onclick="copyEmail('twins@starscraft.fun')">twins@starscraft.fun</a></div>
+      </div>
+
+      <div class="card">
+        <img class="avatar" src="abl.png" alt="Developer 2">
+        <div class="name">MrAbl</div>
+        <div class="role">Developer</div>
+        <div class="contact"><a onclick="copyEmail('mrabl@starscraft.fun')">mrabl@starscraft.fun</a></div>
+      </div>
+
+      <div class="card">
+        <img class="avatar" src="ss.png" alt="Staff 1">
+        <div class="name">Ahmed</div>
+        <div class="role">Staff</div>
+        <div class="contact"><a onclick="copyEmail('https://discord.com/invite/7tt7apjcqB')">Discord</a></div>
+      </div>
+
+      <div class="card">
+        <img class="avatar" src="ss.png" alt="Staff 2">
+        <div class="name">TheGamer</div>
+        <div class="role">Staff</div>
+        <div class="contact"><a onclick="copyEmail('https://discord.com/invite/7tt7apjcqB')">Discord</a></div>
+      </div>
+
+      <div class="card">
+        <img class="avatar" src="ss.png" alt="Staff 3">
+        <div class="name">qht505qq</div>
+        <div class="role">Staff</div>
+        <div class="contact"><a onclick="copyEmail('https://discord.com/invite/7tt7apjcqB')">Discord</a></div>
+      </div>
+    </div>
+
+    <footer>© Copyright 2019-2025 StarsCraft. All rights reserved.</footer>
+  </div>
+
+  <div id="toast" class="toast">Copied!</div>
+
+  <script>
+    function copyEmail(email){
+      navigator.clipboard.writeText(email).then(()=>{
+        const toast=document.getElementById("toast");
+        toast.classList.add("show");
+        setTimeout(()=>toast.classList.remove("show"),1500);
+      });
+    }
+  </script>
+</body>
+</html>
